@@ -53,7 +53,7 @@ namespace Excel.Improter
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=ExcelImport}/{action=Index}/{id?}");
             });
         }
     }
