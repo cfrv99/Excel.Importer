@@ -1,0 +1,162 @@
+﻿@model List<DatabaseModel>
+
+@if (ViewBag.ErrorMessage != null)
+{
+    <span>@ViewBag.ErrorMessage</span>
+}
+
+
+<form id="form" asp-action="ImportExcel" enctype="multipart/form-data" method="post">
+    <input hidden onchange="handleOnChange()" id="file" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" name="file" />
+</form>
+
+<script>
+
+    let file = document.getElementById("file");
+    let form = document.getElementById("form");
+    function handleClickImport() {
+        file.click()
+    }
+    function handleOnChange() {
+        form.submit();
+    }
+
+    function handleSelectFilter(e) {
+        console.log(e.target.value);
+        let value = event.target.value;
+        let seachFilter = document.getElementById("searchText");
+        if (value == 6 || value == 7 || value == 8) {
+            seachFilter.setAttribute("placeholder", "dd/mm/yyyy - dd/mm/yyyy")
+        } else {
+            seachFilter.setAttribute("placeholder", "axtar")
+
+        }
+    }
+
+</script>
+@{
+    Layout = null;
+
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="~/Agentlik/img/logo.jpg">
+    <title>Tables</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/Agentlik/css/table.css">
+</head>
+<body>
+
+    <header>
+        <a href="http://eco.gov.az/" class="company_logo" target="_blank">
+            <img src="~/Agentlik/img/logo.jpg" alt="logo">
+        </a>
+        <div>
+            <form asp-action="Index" method="get">
+                <select onchange="handleSelectFilter(event)" name="searchType" id="searchType" class="findBySelection">
+                    <option value="1" disabled selected>Axtarışa ver</option>
+                    <option value="1">Bütün</option>
+                    <option value="2">VÖEN</option>
+                    <option value="3">Yatağın adı</option>
+                    <option value="4">Sahənin adı</option>
+                    <option value="5">Yatağın yerləşdiyi inzibati ərazi</option>
+                    <option value="6">DMAA-nın verilmə tarixi</option>
+                    <option value="7">DMAA-nın bitmə tarixi</option>
+                </select>
+                <input style="width:260px" type="text" name="searchText" id="searchText" class="searchTxtBox">
+                <button type="submit" class="searchBtn">Axtar</button>
+            </form>
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger" role="alert">
+                    @TempData["ErrorMessage"]
+                </div>
+            }
+            <button onclick="handleClickImport()" class="searchBtn">Excel Daxil Et</button>
+
+        </div>
+
+    </header>
+
+    <h4 class="searchResult"></h4>
+
+    <div class="table_container">
+        <table class="table table-hover table-bordered">
+            <!-- table-bordered | table-hover -->
+            <thead class="thead-dark">
+                <tr class="table_header">
+                    <th>#</th>
+                    <th>Yatağın yerləşdiyi inzibati ərazi</th>
+                    <th>Yatağın kodu</th>
+                    <th>Yatağın adı</th>
+                    <th>Sahənin kodu</th>
+                    <th>Sahənin adı</th>
+                    <th>DMAA-nın nömrəsi</th>
+                    <th>DMAA-nın qeydiyyat tarixi</th>
+                    <th>DMAA-nın bitmə tarixi</th>
+                    <th>Faydalı qazıntın növü</th>
+                    <th>Ehtiyatın kateqoriyası</th>
+                    <th>İstismar vəziyyəti</th>
+                    <th>İlkin ehtiyat</th>
+                    <th>
+                        2019-cu il üzrə hasilatın həcmi
+                        <br>
+                        (min m<sup>3</sup>)
+                    </th>
+                    <th>
+                        2020-ci ilə qalıq ehtiyat
+                        <br>
+                        (min m<sup>3</sup>)
+                    </th>
+                    <th>MXB Fonda mədaxil olan məbləğ (AZN)</th>
+                    <th>Ayrılan sahə, ha</th>
+                    <th>VÖEN</th>
+                    <th>Milli Geoloji Kəşfiyyat Xidmətinin təsdiqi barədə</th>
+                    <th>Koordinat</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <!-- COUNT OF COLUMN -->
+                @foreach (var data in Model)
+                {
+                    <tr class="centerTxt">
+                        <th></th>
+                        <td>@data.YataginInzibatiErazisi</td>
+                        <td>@data.YataginKodu</td>
+                        <td>@data.YataginAdi</td>
+                        <td>@data.SaheninKodu</td>
+                        <td>@data.SaheninAdi</td>
+                        <td>@data.DMAANomresi</td>
+                        <td>@data.DMAAQeydiyyatTarixi</td>
+                        <td>@data.DMAABitmeTarix</td>
+                        <td>@data.FaydaliQazintiNovu</td>
+                        <td>@data.EhtiyyatinKategoryasi</td>
+                        <td>@data.IstisimarVeziyyeti</td>
+                        <td>@data.IlkinEhtiyyat</td>
+                        <td>@data.IlUzreHasilatCemi</td>
+                        <td>@data.HasilatQaliqlari</td>
+                        <td>@data.MedaxilVeziyyeti</td>
+                        <td>@data.AyrilanSahe</td>
+                        <td>@data.VOEN</td>
+                        <td>@data.MilliGealojiKeshfiyyat</td>
+                        <td>@data.Kordinat</td>
+                    </tr>
+                }
+
+
+                <!-- DATA START FROM HERE -->
+
+
+            </tbody>
+        </table>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+</body>
+</html>
