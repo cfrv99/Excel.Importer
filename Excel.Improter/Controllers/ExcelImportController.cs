@@ -140,9 +140,9 @@ namespace Excel.Improter.Controllers
             {
                 { 1 , i=>1==1 },
                 { 2 , i=>i.VOEN.StartsWith(searchFilter)},
-                { 3 , i=>i.YataginAdi == searchFilter },
-                { 4 , i=>i.SaheninAdi == searchFilter },
-                { 5 , i=>i.YataginInzibatiErazisi==searchFilter },
+                { 3 , i=>i.YataginAdi.StartsWith(searchFilter)},
+                { 4 , i=>i.SaheninAdi.StartsWith(searchFilter)},
+                { 5 , i=>i.YataginInzibatiErazisi.StartsWith(searchFilter)},
                 { 6 , i=>startDate<i.DMAAQeydiyyatTarixi && i.DMAAQeydiyyatTarixi<=endDate},
                 { 7 , i=>startDate<= i.DMAABitmeTarix && i.DMAABitmeTarix<=endDate }
             };
