@@ -74,7 +74,7 @@
                     {
                         <a class="addUser" href="/Account/GetUserList">İstifadəçilər</a>
                     }
-                    <button onclick="handleClickImport()" class="searchBtn">Excel Daxil Et</button>
+
                     @if (User.Identity.IsAuthenticated)
                     {
                         <a class="addUser" href="/Account/Logout">Çıxış et</a>
@@ -82,6 +82,10 @@
                     }
                 </div>
             </form>
+            <form id="form" asp-action="ImportExcel" enctype="multipart/form-data" method="post">
+                <input hidden onchange="handleOnChange()" id="file" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" name="file" />
+            </form>
+            <button onclick="handleClickImport()" class="searchBtn">Excel Daxil Et</button>
             @if (TempData["ErrorMessage"] != null)
             {
                 <div class="alert alert-danger" role="alert">
