@@ -1,95 +1,40 @@
-﻿@model List<DatabaseModel>
-@inject Microsoft.AspNetCore.Identity.UserManager<AppUser> userManager
-@if (ViewBag.ErrorMessage != null)
-{
-    <span>@ViewBag.ErrorMessage</span>
-}
-
-
-<form id="form" asp-action="ImportExcel" enctype="multipart/form-data" method="post">
-    <input hidden onchange="handleOnChange()" id="file" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" name="file" />
-</form>
-
-<script>
-
-    let file = document.getElementById("file");
-    let form = document.getElementById("form");
-    function handleClickImport() {
-        file.click()
-    }
-    function handleOnChange() {
-        form.submit();
-    }
-
-    function handleSelectFilter(e) {
-        console.log(e.target.value);
-        let value = event.target.value;
-        let seachFilter = document.getElementById("searchText");
-        if (value == 6 || value == 7 || value == 8) {
-            seachFilter.setAttribute("placeholder", "dd/mm/yyyy - dd/mm/yyyy")
-        } else {
-            seachFilter.setAttribute("placeholder", "axtar")
-
-        }
-    }
-
-</script>
-@{
-    Layout = null;
-
-}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="~/Agentlik/img/logo.jpg">
+    <link rel="icon" href="../img/logo_blank.jpg">
     <title>Tables</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <link rel="stylesheet" href="~/Agentlik/css/table.css">
+    <link rel="stylesheet" href="../css/table.css">
+    
 </head>
 <body>
 
     <header>
-        <a href="http://eco.gov.az/" class="company_logo" target="_blank">
-            <img src="~/Agentlik/img/logo.jpg" alt="logo">
+        <a href="../index.html" class="company_logo">
+            <img src="../img/logo.jpg" alt="logo">
         </a>
         <div>
-            <form asp-action="Index" method="get">
-                <select onchange="handleSelectFilter(event)" name="searchType" id="searchType" class="findBySelection">
-                    <option value="1" disabled selected>Axtarışa ver</option>
-                    <option value="1">Bütün</option>
-                    <option value="2">VÖEN</option>
-                    <option value="3">Yatağın adı</option>
-                    <option value="4">Sahənin adı</option>
-                    <option value="5">Yatağın yerləşdiyi inzibati ərazi</option>
-                    <option value="6">DMAA-nın verilmə tarixi</option>
-                    <option value="7">DMAA-nın bitmə tarixi</option>
-                </select>
-                <input style="width:260px" type="text" name="searchText" id="searchText" class="searchTxtBox">
-                <button type="submit" class="searchBtn">Axtar</button>
-                <div class="btn_container">
-                    @if (User.IsInRole("Administrator"))
-                    {
-                        <a class="addUser" href="/Account/GetUserList">İstifadəçilər</a>
-                    }
-                    <button onclick="handleClickImport()" class="searchBtn">Excel Daxil Et</button>
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <a class="addUser" href="/Account/Logout">Çıxış et</a>
-
-                    }
-                </div>
-            </form>
-            @if (TempData["ErrorMessage"] != null)
-            {
-                <div class="alert alert-danger" role="alert">
-                    @TempData["ErrorMessage"]
-                </div>
-            }
-
-
+            <select name="services" id="services" class="findBySelection">
+                <option value="diabledValue" disabled selected>Axtarışa ver</option>
+                <option value="all_data">Bütün</option>
+                <option value="voen">VÖEN</option>
+                <option value="source_code">Yatağın adı</option>
+                <option value="area_code">Sahənin adı</option>
+                <option value="area_code">Yatağın yerləşdiyi inzibati ərazi</option>
+                <option value="area_code">DMAA-nın verilmə tarixi</option>
+                <option value="area_code">DMAA-nın bitmə tarixi</option>
+                <option value="area_code">DMAA-nın bitmə tarixi</option>
+                <option value="area_code">5gk ödənişi</option>
+              </select>
+              <input type="text" name="" id="" class="searchTxtBox">
+              <button class="searchBtn">Axtar</button>
+              <div class="btn_container">
+                  <a class="addUser" href="./user_list.html">İstifadəçilər</a>
+                  <a class="addUser" href="./column_add.html">Əlavə et</a>
+                  <a class="addUser" href="./data_add.html">Düzəliş et</a>
+              </div>
         </div>
 
     </header>
@@ -97,19 +42,15 @@
     <h4 class="searchResult"></h4>
 
     <div class="table_container">
-        <table class="table table-hover table-bordered">
-            <!-- table-bordered | table-hover -->
+        <table class="table table-hover table-bordered">  <!-- table-bordered | table-hover -->
             <thead class="thead-dark">
                 <tr class="table_header">
-                    <th scope="col" rowspan="2">
-                        Əməliyyatlar
-                    </th>
                     <th scope="col" rowspan="2">#</th>
                     <th scope="col" colspan="8 ">
                         Yataqların və onun sahələrinin adı,
                         <br>
                         Yatağı kəşf və ya istismar edən təşkilatın adı,
-                        <br>
+                        <br> 
                         İstismara qatıldığı il
                     </th>
                     <th scope="col" rowspan="2">
@@ -149,7 +90,7 @@
                     <th>DMAA-nın nömrəsi</th>
                     <th>DMAA-nın verilmə tarixi</th>
                     <th>DMAA-nın bitmə tarixi</th>
-
+                    
 
                     <!-- SECOND PART -->
                     <th>
@@ -177,7 +118,6 @@
                 <!-- COUNT OF COLUMN -->
 
                 <tr class="centerTxt">
-                    <th></th>
                     <th>1</th>
                     <td>1</td>
                     <td>2</td>
@@ -208,47 +148,44 @@
                 </tr>
 
                 <!-- DATA START FROM HERE -->
-                @foreach (var item in Model)
-                {
-            <tr class="centerTxt">
-                <th>
-                    <a asp-action="Edit"asp-route-id="@item.Id" class="btn btn-success">Edit</a>
-                </th>
-                <th>2</th>
-                <td>@item.YataginInzibatiErazisi</td>
-                <td>@item.YataginKodu</td>
-                <td>@item.YataginAdi</td>
-                <td>@item.SaheninKodu</td>
-                <td>@item.SaheninAdi</td>
-                <td>@item.DMAANomresi</td>
-                <td>@item.DMAAQeydiyyatTarixi</td>
-                <td>@item.DMAABitmeTarix</td>
-                <td>@item.SenayeMenimsenilmesiSeviyyesi</td>
-                <td>@item.FaydaliQazintiNovu</td>
-                <td>@item.EhtiyyatinKategoryasi</td>
-                <td>@item.BalansEhtiyyatlari2019</td>
-                <td>@item.Hasilat</td>
-                <td>@item.HasilatZamaniItkiler</td>
-                <td>@item.Kesfiyyat</td>
-                <td>@item.YenidenQiymetlendirme</td>
-                <td>@item.MoteberliyiTesdiqlenmeyen</td>
-                <td>@item.SerhedlerinDeyishmesiVeDiger</td>
-                <td>@item.QaliqEhtiyyatlari2020</td>
-                <td>@item.AyrilanSahe</td>
-                <td>@item.VOEN</td>
-                <td>@item.TesdiqEdilmishBalansCemi</td>
-                <td>@item.Koordinat</td>
-                <td>@item.MineralXammalBazasiBerpasi</td>
-                <td>@item.TesdiqOlunmaseBarede</td>
-                <td>@item.Serh</td>
-            </tr>
-                }
 
+                <tr class="centerTxt">
+                    <th>2</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
 
             </tbody>
         </table>
     </div>
 
+
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <script src="../js/script.js"></script>
 </body>
 </html>

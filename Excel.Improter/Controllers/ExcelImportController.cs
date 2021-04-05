@@ -1,5 +1,7 @@
 ﻿using EFCore.BulkExtensions;
+using Excel.Improter.Extensions;
 using Excel.Improter.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +15,7 @@ using System.Threading.Tasks;
 
 namespace Excel.Improter.Controllers
 {
+    [Authorize]
     public class ExcelImportController : Controller
     {
         private readonly IWebHostEnvironment webHostEnvironment;
@@ -25,7 +28,7 @@ namespace Excel.Improter.Controllers
         }
         public IActionResult Index(string searchText = "", int searchType = 1)
         {
-            if(searchType!=1)
+            if (searchType != 1)
             {
                 if (string.IsNullOrWhiteSpace(searchText))
                 {
@@ -80,22 +83,30 @@ namespace Excel.Improter.Controllers
                         var dmaaNomresi = worksheet.Cells[i, 7].Value;
                         var dmaaQeydiyyatTarixi = worksheet.Cells[i, 8].Value;
                         var dmaaBitmeTarixi = worksheet.Cells[i, 9].Value;
-                        var faydaliQazintiNovu = worksheet.Cells[i, 10].Value;
-                        var ehtiyyatinKategoriyasi = worksheet.Cells[i, 11].Value;
-                        var istisimarVeziyyeti = worksheet.Cells[i, 12].Value;
-                        var ilkinEhtiyyat = worksheet.Cells[i, 13].Value;
-                        var ilUzreHasilatHecmi = worksheet.Cells[i, 14].Value;
-                        var hasilatqaliqlari = worksheet.Cells[i, 15].Value;
-                        var medaxilEmaliyyati = worksheet.Cells[i, 16].Value;
-                        var ayrilanSahe = worksheet.Cells[i, 17].Value;
-                        var voen = worksheet.Cells[i, 18].Value;
-                        var milliGeolojiTesdiq = worksheet.Cells[i, 19].Value;
-                        var koordinat = worksheet.Cells[i, 20].Value;
-                        var yataginTamAdi = worksheet.Cells[i, 21].Value;
+                        var senayeMenimsenilmesi = worksheet.Cells[i, 10].Value;
+                        var faydaliQazintiNovu = worksheet.Cells[i, 11].Value;
+                        var ehtiyyatinKategoriyasi = worksheet.Cells[i, 12].Value;
+                        var balansEhtiyyatlari2019 = worksheet.Cells[i, 13].Value;
+                        var hasilat = worksheet.Cells[i, 14].Value;
+                        var hasilatItkileri = worksheet.Cells[i, 15].Value;
+                        var kesfiyyat = worksheet.Cells[i, 16].Value;
+                        var yenidenQiymetlendirme = worksheet.Cells[i, 17].Value;
+                        var moteberliyiTesdiqlenmeyenEhtiyyat = worksheet.Cells[i, 18].Value;
+                        var serhedlerinDeyishmesi = worksheet.Cells[i, 19].Value;
+                        var qaliqEhtiyyatlari2020 = worksheet.Cells[i, 20].Value;
+                        var ayrilanSahe = worksheet.Cells[i, 21].Value;
+                        var voen = worksheet.Cells[i, 22].Value;
+                        var tesdiqEdilmishBalansEhtiyyatCemi = worksheet.Cells[i, 23].Value;
+                        var koordinat = worksheet.Cells[i, 24].Value;
+                        var mineralXammalBazasininBerpasi = worksheet.Cells[i, 25].Value;
+                        var tesdiqOlunmasiBaredeMelumat = worksheet.Cells[i, 26].Value;
+                        var serh = worksheet.Cells[i,27].Value;
+
+
                         DatabaseModel databaseModel = new DatabaseModel
                         {
                             YataginInzibatiErazisi = yataginYerleshdiyiErazi is null ? "" : yataginYerleshdiyiErazi.ToString(),
-                            YataginAdi = Convert.ToString(yataginTamAdi),
+                            YataginAdi = Convert.ToString(yataginAdi),
                             YataginKodu = Convert.ToString(yataginKodu),
                             SaheninKodu = Convert.ToString(saheninKodu),
                             SaheninAdi = Convert.ToString(saheninAdi),
@@ -104,15 +115,22 @@ namespace Excel.Improter.Controllers
                             DMAABitmeTarix = Convert.ToDateTime(dmaaBitmeTarixi),
                             DMAAQeydiyyatTarixi = Convert.ToDateTime(dmaaQeydiyyatTarixi),
                             EhtiyyatinKategoryasi = Convert.ToString(ehtiyyatinKategoriyasi),
-                            IstisimarVeziyyeti = Convert.ToString(istisimarVeziyyeti),
-                            IlkinEhtiyyat = Convert.ToString(ilkinEhtiyyat),
+                            SenayeMenimsenilmesiSeviyyesi = Convert.ToString(senayeMenimsenilmesi),
+                            BalansEhtiyyatlari2019 = Convert.ToString(balansEhtiyyatlari2019),
                             AyrilanSahe = Convert.ToString(ayrilanSahe),
                             VOEN = Convert.ToString(voen),
-                            MilliGealojiKeshfiyyat = Convert.ToString(milliGeolojiTesdiq),
-                            Kordinat = Convert.ToString(koordinat),
-                            MedaxilVeziyyeti = Convert.ToString(medaxilEmaliyyati),
-                            HasilatQaliqlari = hasilatqaliqlari is null ? "" : hasilatqaliqlari.ToString(),
-                            IlUzreHasilatCemi = ilUzreHasilatHecmi is null ? "" : ilUzreHasilatHecmi.ToString()
+                            Hasilat = Convert.ToString(hasilat),
+                            Koordinat = Convert.ToString(koordinat),
+                            HasilatZamaniItkiler = Convert.ToString(hasilatItkileri),
+                            Kesfiyyat = kesfiyyat is null ? "" : kesfiyyat.ToString(),
+                            YenidenQiymetlendirme = yenidenQiymetlendirme is null ? "" : yenidenQiymetlendirme.ToString(),
+                            MoteberliyiTesdiqlenmeyen = moteberliyiTesdiqlenmeyenEhtiyyat?.ToString(),
+                            SerhedlerinDeyishmesiVeDiger = Convert.ToString(serhedlerinDeyishmesi),
+                            QaliqEhtiyyatlari2020 = Convert.ToString(qaliqEhtiyyatlari2020),
+                            TesdiqEdilmishBalansCemi = Convert.ToString(tesdiqEdilmishBalansEhtiyyatCemi),
+                            MineralXammalBazasiBerpasi = Convert.ToString(mineralXammalBazasininBerpasi),
+                            TesdiqOlunmaseBarede = Convert.ToString(tesdiqOlunmasiBaredeMelumat),
+                            Serh = Convert.ToString(serh)
                         };
                         list.Add(databaseModel);
                     }
@@ -147,6 +165,26 @@ namespace Excel.Improter.Controllers
                 { 7 , i=>startDate<= i.DMAABitmeTarix && i.DMAABitmeTarix<=endDate }
             };
             return keyValuePairs[key];
+        }
+
+
+        public IActionResult FilterData(FilterDatasInput input)
+        {
+            return Ok();
+        }
+
+        public IActionResult Edit(int id)
+        {
+            var data = dataContext.ExcelDatas.FirstOrDefault(i => i.Id == id);
+            return View(data);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(DatabaseModel model)
+        {
+            dataContext.ExcelDatas.Update(model);
+            await dataContext.SaveChangesAsync();
+            return RedirectToAction("Index");
         }
     }
 }

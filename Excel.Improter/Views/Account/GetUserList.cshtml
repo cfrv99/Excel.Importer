@@ -1,0 +1,65 @@
+﻿@model List<UserListOutPut>
+@{
+    ViewData["Title"] = "GetUserList";
+    Layout = null;
+}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+<link rel="stylesheet" href="~/Agentlik/css/user.css">
+<link rel="stylesheet" href="~/Agentlik//css/table.css">
+<header>
+    <a asp-controller="ExcelImport" asp-action="Index" class="company_logo">
+        <img src="~/Agentlik/img/logo.jpg" alt="logo">
+    </a>
+    @*<div>
+            <select name="services" id="services" class="findBySelection">
+                <option value="diabledValue" disabled selected>Axtarışa ver</option>
+                <option value="all_data">Bütün</option>
+                <option value="voen">VÖEN</option>
+                <option value="source_code">Yatağın adı</option>
+                <option value="area_code">Sahənin adı</option>
+                <option value="area_code">Yatağın yerləşdiyi inzibati ərazi</option>
+                <option value="area_code">DMAA-nın verilmə tarixi</option>
+                <option value="area_code">DMAA-nın bitmə tarixi</option>
+                <option value="area_code">DMAA-nın bitmə tarixi</option>
+                <option value="area_code">5gk ödənişi</option>
+            </select>
+            <input type="text" name="" id="" class="searchTxtBox">
+            <button class="searchBtn">Axtar</button>
+            <div class="btn_container">
+                <a class="addUser" href="./user_add.html">İstifadəçi əlavə et</a>
+            </div>
+        </div>*@
+
+</header>
+<div style="padding-left:430px">
+    <a  asp-action="CreateUser" as class="addUser">İstifadəçi Əlavə et</a>
+
+</div>
+<table class="table table-hover user_table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">İstifadəçi adı</th>
+            <th scope="col">Şifrəsi</th>
+            <th scope="col">Selahiyyetler</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <th scope="row">#</th>
+                <td>@user.UserName</td>
+                <td>@user.Password</td>
+                <td>
+                    @foreach (var role in user.Roles)
+                    {
+                        <p>@role</p>
+                    }
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+

@@ -4,14 +4,16 @@ using Excel.Improter.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Excel.Improter.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210404091344_intial_Identity")]
+    partial class intial_Identity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,9 +55,6 @@ namespace Excel.Improter.Migrations
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("Pass")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
@@ -99,9 +98,6 @@ namespace Excel.Improter.Migrations
                     b.Property<string>("AyrilanSahe")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("BalansEhtiyyatlari2019")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime?>("DMAABitmeTarix")
                         .HasColumnType("datetime2");
 
@@ -117,13 +113,7 @@ namespace Excel.Improter.Migrations
                     b.Property<string>("FaydaliQazintiNovu")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Hasilat")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("HasilatQaliqlari")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("HasilatZamaniItkiler")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("IlUzreHasilatCemi")
@@ -135,10 +125,7 @@ namespace Excel.Improter.Migrations
                     b.Property<string>("IstisimarVeziyyeti")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Kesfiyyat")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Koordinat")
+                    b.Property<string>("Kordinat")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MedaxilVeziyyeti")
@@ -147,34 +134,10 @@ namespace Excel.Improter.Migrations
                     b.Property<string>("MilliGealojiKeshfiyyat")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MineralXammalBazasiBerpasi")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MoteberliyiTesdiqlenmeyen")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("QaliqEhtiyyatlari2020")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("SaheninAdi")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SaheninKodu")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SenayeMenimsenilmesiSeviyyesi")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Serh")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SerhedlerinDeyishmesiVeDiger")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TesdiqEdilmishBalansCemi")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TesdiqOlunmaseBarede")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("VOEN")
@@ -187,9 +150,6 @@ namespace Excel.Improter.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("YataginKodu")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("YenidenQiymetlendirme")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -206,9 +166,6 @@ namespace Excel.Improter.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FullName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")

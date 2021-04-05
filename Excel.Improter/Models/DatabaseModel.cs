@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Excel.Improter.Models
 {
@@ -16,6 +13,20 @@ namespace Excel.Improter.Models
         public string DMAANomresi { get; set; }
         public DateTime? DMAABitmeTarix { get; set; }
         public DateTime? DMAAQeydiyyatTarixi { get; set; }
+        public string SenayeMenimsenilmesiSeviyyesi { get; set; }
+        public string BalansEhtiyyatlari2019 { get; set; }
+        public string Hasilat { get; set; }
+        public string HasilatZamaniItkiler { get; set; }
+        public string Kesfiyyat { get; set; }
+        public string YenidenQiymetlendirme { get; set; }
+        public string MoteberliyiTesdiqlenmeyen { get; set; }
+        public string SerhedlerinDeyishmesiVeDiger { get; set; }
+        public string QaliqEhtiyyatlari2020 { get; set; }
+        public string TesdiqEdilmishBalansCemi { get; set; }
+        public string Koordinat { get; set; }
+        public string MineralXammalBazasiBerpasi { get; set; }
+        public string TesdiqOlunmaseBarede { get; set; }
+        public string Serh { get; set; }
         public string EhtiyyatinKategoryasi { get; set; }
         public string IstisimarVeziyyeti { get; set; }
         public string IlkinEhtiyyat { get; set; }
@@ -25,7 +36,6 @@ namespace Excel.Improter.Models
         public string AyrilanSahe { get; set; }
         public string VOEN { get; set; }
         public string MilliGealojiKeshfiyyat { get; set; }
-        public string Kordinat { get; set; }
         public string MedaxilVeziyyeti { get; set; }
     }
 }

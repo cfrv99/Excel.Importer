@@ -62,6 +62,21 @@ header {
     outline: none;
 }
 
+.addUser {
+    color: white;
+    background-color: rgb(164, 121, 102);
+    border: none;
+    border-radius: 3px;
+    padding: 6px 10px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.addUser:hover {
+    color: white;
+    background-color: #873e23;
+}
+
 /* CHANGE LOGO/ Anchor tag */
 .company_logo {
     display: block;
@@ -82,3 +97,8 @@ header {
 /* .table {
     border: 1px solid black;
 } */
+
+
+.btn_container {
+    margin-top: 2%;
+}
