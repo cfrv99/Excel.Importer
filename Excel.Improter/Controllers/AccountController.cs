@@ -61,33 +61,7 @@ namespace Excel.Improter.Controllers
         [HttpGet]
         public async Task<IActionResult> CreateUser()
         {
-            if (!roleManager.Roles.Any())
-            {
-                var admin = new Role
-                {
-                    Name = "Administrator",
-                    FullName = "Administrator"
-                };
-                var expert = new Role
-                {
-                    FullName = "Geoloji ekspertiza və reyestr şöbəsi",
-                    Name = "Expert"
-                };
-                var marketolog = new Role
-                {
-                    FullName = "Maliyyə, strategiya və marketinq",
-                    Name = "Marketolog"
-                };
-                var supporter = new Role
-                {
-                    FullName = "Yer təki fəaliyyətinin tənzimlənməsi",
-                    Name = "Supporter"
-                };
-                await roleManager.CreateAsync(admin);
-                await roleManager.CreateAsync(marketolog);
-                await roleManager.CreateAsync(expert);
-                await roleManager.CreateAsync(supporter);
-            }
+            
             var model = new CreateUserInput
             {
                 Roles = roleManager.Roles.Select(i => new CheckRoles
