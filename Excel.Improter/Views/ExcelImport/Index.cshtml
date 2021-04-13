@@ -213,41 +213,47 @@
                     <td>26</td>
                 </tr>
 
+                @{
+                    int i = 2;
+                }
                 <!-- DATA START FROM HERE -->
                 @foreach (var item in Model)
                 {
-            <tr class="centerTxt">
-                <th>
-                    <a asp-action="Edit"asp-route-id="@item.Id" class="btn btn-success">Edit</a>
-                </th>
-                <th>2</th>
-                <td>@item.YataginInzibatiErazisi</td>
-                <td>@item.YataginKodu</td>
-                <td>@item.YataginAdi</td>
-                <td>@item.SaheninKodu</td>
-                <td>@item.SaheninAdi</td>
-                <td>@item.DMAANomresi</td>
-                <td>@item.DMAAQeydiyyatTarixi?.ToString("MM/dd/yyyy")</td>
-                <td>@item.DMAABitmeTarix?.ToString("MM/dd/yyyy")</td>
-                <td>@item.SenayeMenimsenilmesiSeviyyesi</td>
-                <td>@item.FaydaliQazintiNovu</td>
-                <td>@item.EhtiyyatinKategoryasi</td>
-                <td>@item.BalansEhtiyyatlari2019</td>
-                <td>@item.Hasilat</td>
-                <td>@item.HasilatZamaniItkiler</td>
-                <td>@item.Kesfiyyat</td>
-                <td>@item.YenidenQiymetlendirme</td>
-                <td>@item.MoteberliyiTesdiqlenmeyen</td>
-                <td>@item.SerhedlerinDeyishmesiVeDiger</td>
-                <td>@item.QaliqEhtiyyatlari2020</td>
-                <td>@item.AyrilanSahe</td>
-                <td>@item.VOEN</td>
-                <td>@item.TesdiqEdilmishBalansCemi</td>
-                <td>@item.Koordinat</td>
-                <td>@item.MineralXammalBazasiBerpasi</td>
-                <td>@item.TesdiqOlunmaseBarede</td>
-                <td>@item.Serh</td>
-            </tr>
+                    <tr class="centerTxt">
+                        <th>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success">Edit</a>
+                        </th>
+                        <th>@i</th>
+                        <td>@item.YataginInzibatiErazisi</td>
+                        <td>@item.YataginKodu</td>
+                        <td>@item.YataginAdi</td>
+                        <td>@item.SaheninKodu</td>
+                        <td>@item.SaheninAdi</td>
+                        <td>@item.DMAANomresi</td>
+                        <td>@item.DMAAQeydiyyatTarixi?.ToString("MM/dd/yyyy")</td>
+                        <td>@item.DMAABitmeTarix?.ToString("MM/dd/yyyy")</td>
+                        <td>@item.SenayeMenimsenilmesiSeviyyesi</td>
+                        <td>@item.FaydaliQazintiNovu</td>
+                        <td>@item.EhtiyyatinKategoryasi</td>
+                        <td>@item.BalansEhtiyyatlari2019</td>
+                        <td>@item.Hasilat</td>
+                        <td>@item.HasilatZamaniItkiler</td>
+                        <td>@item.Kesfiyyat</td>
+                        <td>@item.YenidenQiymetlendirme</td>
+                        <td>@item.MoteberliyiTesdiqlenmeyen</td>
+                        <td>@item.SerhedlerinDeyishmesiVeDiger</td>
+                        <td>@item.QaliqEhtiyyatlari2020</td>
+                        <td>@item.AyrilanSahe</td>
+                        <td>@item.VOEN</td>
+                        <td>@item.TesdiqEdilmishBalansCemi</td>
+                        <td>
+                            <a download="" href="~/img/@item.Koordinat">Yukle</a>
+                        </td>
+                        <td>@item.MineralXammalBazasiBerpasi</td>
+                        <td>@item.TesdiqOlunmaseBarede</td>
+                        <td>@item.Serh</td>
+                    </tr>
+                    i++;
                 }
 
 

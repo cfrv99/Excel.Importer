@@ -23,21 +23,17 @@
         <a asp-action="Index" as class="addUser">Geri Don</a>
 
     </div>
-    <form class="col-md-3 addInfo_form" asp-action="Edit">
+    <form class="col-md-3 addInfo_form" enctype="multipart/form-data" asp-action="Edit">
         @*<div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Dəyişiləcək məlumatın sıra sayı</label>
-                <input type="text" asp-for="" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-            </div>*@
+            <label for="exampleInputEmail1" class="form-label">Dəyişiləcək məlumatın sıra sayı</label>
+            <input type="text" asp-for="" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>*@
         <input type="hidden" asp-for="Id" />
         @if (User.IsInRole("Supporter") || User.IsInRole("Administrator"))
         {
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Hasilat</label>
                 <input asp-for="Hasilat" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-            </div>
-            <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Koordinat</label>
-                <input asp-for="Koordinat" type="text" class="form-control" id="exampleInputPassword1">
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Təsdiq olunması barədə məlumat</label>
@@ -84,11 +80,11 @@
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">DMAA-nın verilmə tarixi</label>
-                <input asp-for="DMAAQeydiyyatTarixi" type="text" class="form-control" id="exampleInputPassword1">
+                <input asp-for="DMAAQeydiyyatTarixi" type="date" class="form-control" id="exampleInputPassword1">
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">DMAA-nın bitmə tarixi</label>
-                <input asp-for="DMAABitmeTarix" type="text" class="form-control" id="exampleInputPassword1">
+                <input asp-for="DMAABitmeTarix" type="date" class="form-control" id="exampleInputPassword1">
             </div>
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">
@@ -160,10 +156,19 @@
                 <textarea asp-for="Serh" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
             </div>
         }
+        <button onclick="handleClickFileUpload()" type="button" class="btn btn-outline-secondary"><i class="fas fa-upload"></i> Əsas şəkil yüklə</button>
 
+        <input type="file" id="file" hidden name="file" />
+        <br />
+        <br />
 
         <button type="submit" class="btn btn-primary login_submit">Düzəliş et</button>
     </form>
+    <script>
+        function handleClickFileUpload() {
+            document.getElementById("file").click();
+        }
+    </script>
 </body>
 </html>
 

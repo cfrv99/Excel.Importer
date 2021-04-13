@@ -180,8 +180,18 @@ namespace Excel.Improter.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(DatabaseModel model)
+        public async Task<IActionResult> Edit(DatabaseModel model,IFormFile file)
         {
+            if (file != null)
+            {
+                var fileName = Guid.NewGuid().ToString() + file.FileName;
+                var fullPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\img", fileName);
+                using (var fs = new FileStream(fullPath, FileMode.OpenOrCreate))
+                {
+                    await file.CopyToAsync(fs);
+                }
+                model.Koordinat = fileName;
+            }
             dataContext.ExcelDatas.Update(model);
             await dataContext.SaveChangesAsync();
             return RedirectToAction("Index");
@@ -192,8 +202,19 @@ namespace Excel.Improter.Controllers
             return View(new DatabaseModel());
         }
         [HttpPost]
-        public async Task<IActionResult> Add(DatabaseModel model)
+        public async Task<IActionResult> Add(DatabaseModel model, IFormFile file)
         {
+            if (file != null)
+            {
+                var fileName = Guid.NewGuid().ToString() + file.FileName;
+                var fullPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\img", fileName);
+                using (var fs = new FileStream(fullPath, FileMode.OpenOrCreate))
+                {
+                    await file.CopyToAsync(fs);
+                }
+                model.Koordinat = fileName;
+            }
+            
             dataContext.ExcelDatas.Add(model);
             await dataContext.SaveChangesAsync();
             return RedirectToAction("Index");
