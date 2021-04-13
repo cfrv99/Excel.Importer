@@ -73,6 +73,8 @@
                     @if (User.IsInRole("Administrator"))
                     {
                         <a class="addUser" href="/Account/GetUserList">İstifadəçilər</a>
+                        <a class="addUser" href="/ExcelImport/Add">Əlavə Et</a>
+
                     }
 
                     @if (User.Identity.IsAuthenticated)
@@ -225,8 +227,8 @@
                 <td>@item.SaheninKodu</td>
                 <td>@item.SaheninAdi</td>
                 <td>@item.DMAANomresi</td>
-                <td>@item.DMAAQeydiyyatTarixi</td>
-                <td>@item.DMAABitmeTarix</td>
+                <td>@item.DMAAQeydiyyatTarixi?.ToString("MM/dd/yyyy")</td>
+                <td>@item.DMAABitmeTarix?.ToString("MM/dd/yyyy")</td>
                 <td>@item.SenayeMenimsenilmesiSeviyyesi</td>
                 <td>@item.FaydaliQazintiNovu</td>
                 <td>@item.EhtiyyatinKategoryasi</td>

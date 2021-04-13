@@ -112,8 +112,8 @@ namespace Excel.Improter.Controllers
                             SaheninAdi = Convert.ToString(saheninAdi),
                             FaydaliQazintiNovu = faydaliQazintiNovu is null ? "" : faydaliQazintiNovu.ToString(),
                             DMAANomresi = Convert.ToString(dmaaNomresi),
-                            DMAABitmeTarix = Convert.ToDateTime(dmaaBitmeTarixi),
-                            DMAAQeydiyyatTarixi = Convert.ToDateTime(dmaaQeydiyyatTarixi),
+                            DMAABitmeTarix = dmaaBitmeTarixi is null ? new DateTime() : Convert.ToDateTime(dmaaBitmeTarixi),
+                            DMAAQeydiyyatTarixi = dmaaQeydiyyatTarixi is null ? new DateTime() : Convert.ToDateTime(dmaaQeydiyyatTarixi),
                             EhtiyyatinKategoryasi = Convert.ToString(ehtiyyatinKategoriyasi),
                             SenayeMenimsenilmesiSeviyyesi = Convert.ToString(senayeMenimsenilmesi),
                             BalansEhtiyyatlari2019 = Convert.ToString(balansEhtiyyatlari2019),
@@ -183,6 +183,18 @@ namespace Excel.Improter.Controllers
         public async Task<IActionResult> Edit(DatabaseModel model)
         {
             dataContext.ExcelDatas.Update(model);
+            await dataContext.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Add()
+        {
+            return View(new DatabaseModel());
+        }
+        [HttpPost]
+        public async Task<IActionResult> Add(DatabaseModel model)
+        {
+            dataContext.ExcelDatas.Add(model);
             await dataContext.SaveChangesAsync();
             return RedirectToAction("Index");
         }
